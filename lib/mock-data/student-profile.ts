@@ -1,12 +1,12 @@
 export const studentProfileData = {
   // Personal Information
   name: "Arjun Sharma",
-  usn: "1MS21CS042",
+  usn: "ENG23AM0175",
   email: "arjun.sharma@college.edu",
   phone: "+91 9876543210",
   year: "3rd Year",
   department: "Computer Science & Engineering",
-  college: "MS Ramaiah Institute of Technology",
+  college: "Dayananda Sagar University",
   avatar: "/student-profile.png",
   cgpa: 8.7,
   careerTarget: "Full Stack Developer",

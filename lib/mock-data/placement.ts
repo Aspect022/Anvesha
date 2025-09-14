@@ -68,7 +68,7 @@ export const mockPlacementOpportunities: PlacementOpportunity[] = [
 
 export const mockPlacementReadyStudents: PlacementReadyStudent[] = [
   {
-    usn: "1MS21CS042",
+    usn: "ENG23AM0175",
     name: "Arjun Sharma",
     year: "3rd Year",
     department: "CSE",
@@ -83,7 +83,7 @@ export const mockPlacementReadyStudents: PlacementReadyStudent[] = [
     status: "Available",
   },
   {
-    usn: "1MS21CS043",
+    usn: "ENG23CS0061",
     name: "Sneha Patel",
     year: "3rd Year",
     department: "CSE",
@@ -98,7 +98,7 @@ export const mockPlacementReadyStudents: PlacementReadyStudent[] = [
     status: "Available",
   },
   {
-    usn: "1MS21CS044",
+    usn: "ENG23CT0042",
     name: "Rahul Kumar",
     year: "3rd Year",
     department: "CSE",
@@ -113,7 +113,7 @@ export const mockPlacementReadyStudents: PlacementReadyStudent[] = [
     status: "Interviewing",
   },
   {
-    usn: "1MS21CS045",
+    usn: "ENG23CS0265",
     name: "Ananya Singh",
     year: "3rd Year",
     department: "CSE",
@@ -128,7 +128,7 @@ export const mockPlacementReadyStudents: PlacementReadyStudent[] = [
     status: "Available",
   },
   {
-    usn: "1MS21CS046",
+    usn: "ENG23CS0265",
     name: "Vikram Joshi",
     year: "3rd Year",
     department: "CSE",

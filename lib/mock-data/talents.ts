@@ -26,7 +26,7 @@ export const mockTalents: Talent[] = [
   {
     id: "1",
     name: "Arjun Sharma",
-    usn: "1MS21CS001",
+    usn: "ENG23AM0175",
     department: "Computer Science",
     year: 4,
     cgpa: 9.2,
@@ -49,7 +49,7 @@ export const mockTalents: Talent[] = [
   {
     id: "2",
     name: "Priya Patel",
-    usn: "1MS21EC002",
+    usn: "ENG23CS0061",
     department: "Electronics",
     year: 3,
     cgpa: 8.8,
@@ -69,7 +69,7 @@ export const mockTalents: Talent[] = [
   {
     id: "3",
     name: "Rahul Kumar",
-    usn: "1MS21ME003",
+    usn: "ENG23CT0042",
     department: "Mechanical",
     year: 4,
     cgpa: 8.5,
@@ -89,7 +89,7 @@ export const mockTalents: Talent[] = [
   {
     id: "4",
     name: "Sneha Reddy",
-    usn: "1MS21IT004",
+    usn: "ENG23CS0265",
     department: "Information Technology",
     year: 3,
     cgpa: 9.0,
@@ -109,7 +109,7 @@ export const mockTalents: Talent[] = [
   {
     id: "5",
     name: "Vikram Singh",
-    usn: "1MS21CS005",
+    usn: "ENG23CS0265",
     department: "Computer Science",
     year: 4,
     cgpa: 8.9,
@@ -129,7 +129,7 @@ export const mockTalents: Talent[] = [
   {
     id: "6",
     name: "Ananya Gupta",
-    usn: "1MS21EC006",
+    usn: "ENG23CS0265",
     department: "Electronics",
     year: 2,
     cgpa: 8.7,
@@ -149,7 +149,7 @@ export const mockTalents: Talent[] = [
   {
     id: "7",
     name: "Karthik Nair",
-    usn: "1MS21CS007",
+    usn: "ENG23CS0265",
     department: "Computer Science",
     year: 3,
     cgpa: 8.6,
@@ -169,7 +169,7 @@ export const mockTalents: Talent[] = [
   {
     id: "8",
     name: "Divya Joshi",
-    usn: "1MS21IT008",
+    usn: "ENG23CS0265",
     department: "Information Technology",
     year: 4,
     cgpa: 9.1,

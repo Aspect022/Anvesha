@@ -27,7 +27,7 @@ export const mockValidationQueue: ValidationSubmission[] = [
   {
     id: 1,
     studentName: "Arjun Sharma",
-    studentUSN: "1MS21CS042",
+    studentUSN: "ENG23AM0175",
     studentAvatar: "/student-profile.png",
     title: "Smart Home IoT Project",
     type: "Project",
@@ -39,7 +39,7 @@ export const mockValidationQueue: ValidationSubmission[] = [
   {
     id: 2,
     studentName: "Sneha Patel",
-    studentUSN: "1MS21CS043",
+    studentUSN: "ENG23CS0061",
     studentAvatar: "/student2-profile.png",
     title: "HackBangalore 2024",
     type: "Hackathon",
@@ -51,7 +51,7 @@ export const mockValidationQueue: ValidationSubmission[] = [
   {
     id: 3,
     studentName: "Rahul Kumar",
-    studentUSN: "1MS21CS044",
+    studentUSN: "ENG23CT0042",
     studentAvatar: "/student3-profile.png",
     title: "Machine Learning Research Paper",
     type: "Research",
@@ -63,7 +63,7 @@ export const mockValidationQueue: ValidationSubmission[] = [
   {
     id: 4,
     studentName: "Ananya Singh",
-    studentUSN: "1MS21CS045",
+    studentUSN: "ENG23CS0265",
     studentAvatar: "/student4-profile.png",
     title: "Google Summer of Code",
     type: "Internship",
@@ -76,7 +76,7 @@ export const mockValidationQueue: ValidationSubmission[] = [
 
 export const mockStudentsList: StudentProfile[] = [
   {
-    usn: "1MS21CS042",
+    usn: "ENG23AM0175",
     name: "Arjun Sharma",
     year: "3rd Year",
     cgpa: 8.7,
@@ -87,7 +87,7 @@ export const mockStudentsList: StudentProfile[] = [
     avatar: "/student-profile.png",
   },
   {
-    usn: "1MS21CS043",
+    usn: "ENG23CS0061",
     name: "Sneha Patel",
     year: "3rd Year",
     cgpa: 9.1,
@@ -98,7 +98,7 @@ export const mockStudentsList: StudentProfile[] = [
     avatar: "/student2-profile.png",
   },
   {
-    usn: "1MS21CS044",
+    usn: "ENG23CT0042",
     name: "Rahul Kumar",
     year: "3rd Year",
     cgpa: 8.9,
