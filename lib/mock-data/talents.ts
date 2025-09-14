@@ -1,0 +1,208 @@
+export interface Talent {
+  id: string
+  name: string
+  usn: string
+  department: string
+  year: number
+  cgpa: number
+  skills: string[]
+  achievements: string[]
+  projects: number
+  internships: number
+  hackathons: number
+  research: number
+  profileImage: string
+  availability: "Available" | "Busy" | "Not Available"
+  targetRole: string
+  location: string
+  email: string
+  phone: string
+  linkedin?: string
+  github?: string
+  portfolio?: string
+}
+
+export const mockTalents: Talent[] = [
+  {
+    id: "1",
+    name: "Arjun Sharma",
+    usn: "1MS21CS001",
+    department: "Computer Science",
+    year: 4,
+    cgpa: 9.2,
+    skills: ["React", "Node.js", "Python", "Machine Learning", "AWS"],
+    achievements: ["Best Project Award", "Hackathon Winner", "Research Publication"],
+    projects: 8,
+    internships: 2,
+    hackathons: 5,
+    research: 1,
+    profileImage: "/student-profile.png",
+    availability: "Available",
+    targetRole: "Full Stack Developer",
+    location: "Bangalore",
+    email: "arjun.sharma@example.com",
+    phone: "+91 9876543210",
+    linkedin: "linkedin.com/in/arjunsharma",
+    github: "github.com/arjunsharma",
+    portfolio: "arjunsharma.dev",
+  },
+  {
+    id: "2",
+    name: "Priya Patel",
+    usn: "1MS21EC002",
+    department: "Electronics",
+    year: 3,
+    cgpa: 8.8,
+    skills: ["IoT", "Embedded Systems", "C++", "Arduino", "MATLAB"],
+    achievements: ["Innovation Award", "Technical Paper Presentation"],
+    projects: 6,
+    internships: 1,
+    hackathons: 3,
+    research: 2,
+    profileImage: "/student2-profile.png",
+    availability: "Available",
+    targetRole: "IoT Engineer",
+    location: "Pune",
+    email: "priya.patel@example.com",
+    phone: "+91 9876543211",
+  },
+  {
+    id: "3",
+    name: "Rahul Kumar",
+    usn: "1MS21ME003",
+    department: "Mechanical",
+    year: 4,
+    cgpa: 8.5,
+    skills: ["CAD", "SolidWorks", "AutoCAD", "3D Printing", "Manufacturing"],
+    achievements: ["Design Competition Winner", "Industry Project"],
+    projects: 5,
+    internships: 2,
+    hackathons: 1,
+    research: 1,
+    profileImage: "/student3-profile.png",
+    availability: "Busy",
+    targetRole: "Design Engineer",
+    location: "Chennai",
+    email: "rahul.kumar@example.com",
+    phone: "+91 9876543212",
+  },
+  {
+    id: "4",
+    name: "Sneha Reddy",
+    usn: "1MS21IT004",
+    department: "Information Technology",
+    year: 3,
+    cgpa: 9.0,
+    skills: ["Java", "Spring Boot", "MySQL", "Docker", "Kubernetes"],
+    achievements: ["Coding Competition Winner", "Open Source Contributor"],
+    projects: 7,
+    internships: 1,
+    hackathons: 4,
+    research: 0,
+    profileImage: "/student4-profile.png",
+    availability: "Available",
+    targetRole: "Backend Developer",
+    location: "Hyderabad",
+    email: "sneha.reddy@example.com",
+    phone: "+91 9876543213",
+  },
+  {
+    id: "5",
+    name: "Vikram Singh",
+    usn: "1MS21CS005",
+    department: "Computer Science",
+    year: 4,
+    cgpa: 8.9,
+    skills: ["Data Science", "Python", "TensorFlow", "SQL", "Tableau"],
+    achievements: ["Data Science Hackathon Winner", "Internship Excellence"],
+    projects: 6,
+    internships: 2,
+    hackathons: 3,
+    research: 2,
+    profileImage: "/student5-profile.png",
+    availability: "Available",
+    targetRole: "Data Scientist",
+    location: "Mumbai",
+    email: "vikram.singh@example.com",
+    phone: "+91 9876543214",
+  },
+  {
+    id: "6",
+    name: "Ananya Gupta",
+    usn: "1MS21EC006",
+    department: "Electronics",
+    year: 2,
+    cgpa: 8.7,
+    skills: ["VLSI", "Verilog", "FPGA", "Digital Design", "Signal Processing"],
+    achievements: ["Circuit Design Award", "Technical Symposium Winner"],
+    projects: 4,
+    internships: 0,
+    hackathons: 2,
+    research: 1,
+    profileImage: "/student6-profile.png",
+    availability: "Available",
+    targetRole: "VLSI Engineer",
+    location: "Bangalore",
+    email: "ananya.gupta@example.com",
+    phone: "+91 9876543215",
+  },
+  {
+    id: "7",
+    name: "Karthik Nair",
+    usn: "1MS21CS007",
+    department: "Computer Science",
+    year: 3,
+    cgpa: 8.6,
+    skills: ["Flutter", "Dart", "Firebase", "React Native", "UI/UX"],
+    achievements: ["Mobile App Competition Winner", "UI Design Award"],
+    projects: 9,
+    internships: 1,
+    hackathons: 6,
+    research: 0,
+    profileImage: "/student7-profile.png",
+    availability: "Not Available",
+    targetRole: "Mobile App Developer",
+    location: "Kochi",
+    email: "karthik.nair@example.com",
+    phone: "+91 9876543216",
+  },
+  {
+    id: "8",
+    name: "Divya Joshi",
+    usn: "1MS21IT008",
+    department: "Information Technology",
+    year: 4,
+    cgpa: 9.1,
+    skills: ["Cybersecurity", "Ethical Hacking", "Network Security", "Python", "Linux"],
+    achievements: ["Cybersecurity Certification", "Bug Bounty Hunter"],
+    projects: 5,
+    internships: 2,
+    hackathons: 2,
+    research: 1,
+    profileImage: "/student-profile.png",
+    availability: "Available",
+    targetRole: "Security Analyst",
+    location: "Delhi",
+    email: "divya.joshi@example.com",
+    phone: "+91 9876543217",
+  },
+]
+
+export const departments = [
+  "Computer Science",
+  "Information Technology",
+  "Electronics",
+  "Mechanical",
+  "Civil",
+  "Electrical",
+]
+
+export const skillCategories = {
+  Programming: ["Python", "Java", "JavaScript", "C++", "React", "Node.js", "Flutter", "Dart"],
+  "Data & AI": ["Machine Learning", "Data Science", "TensorFlow", "SQL", "Tableau"],
+  Hardware: ["IoT", "Embedded Systems", "Arduino", "VLSI", "FPGA"],
+  Design: ["CAD", "SolidWorks", "AutoCAD", "3D Printing", "UI/UX"],
+  "Cloud & DevOps": ["AWS", "Docker", "Kubernetes", "Firebase"],
+  Security: ["Cybersecurity", "Ethical Hacking", "Network Security"],
+  Other: ["MATLAB", "Linux", "Manufacturing", "Signal Processing"],
+}
