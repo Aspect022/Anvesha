@@ -1,23 +1,45 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { FacultyLayout } from "@/components/layout/faculty-layout"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { CheckCircle, XCircle, Eye, FileText, Filter, Search, Users, ClipboardList } from "lucide-react"
-import { ValidationModal } from "@/components/faculty/validation-modal"
-import { StudentProfileModal } from "@/components/faculty/student-profile-modal"
+import { useState } from "react";
+import { FacultyLayout } from "@/components/layout/faculty-layout";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  CheckCircle,
+  XCircle,
+  Eye,
+  FileText,
+  Filter,
+  Search,
+  Users,
+  ClipboardList,
+} from "lucide-react";
+import { ValidationModal } from "@/components/faculty/validation-modal";
+import { StudentProfileModal } from "@/components/faculty/student-profile-modal";
+import { TalentIdentification } from "@/components/faculty/talent-identification";
 
 // Hardcoded faculty data
 const facultyData = {
   name: "Dr. Priya Nair",
   department: "Computer Science & Engineering",
   avatar: "/faculty-profile.png",
-}
+};
 
 // Hardcoded validation queue data
 const validationQueue = [
@@ -29,7 +51,8 @@ const validationQueue = [
     title: "Smart Home IoT Project",
     type: "Project",
     submittedDate: "2024-01-15",
-    description: "Developed a complete IoT solution for home automation using React and Arduino",
+    description:
+      "Developed a complete IoT solution for home automation using React and Arduino",
     proofLink: "/proof/iot-project.pdf",
     status: "pending",
   },
@@ -53,7 +76,8 @@ const validationQueue = [
     title: "Machine Learning Research Paper",
     type: "Research",
     submittedDate: "2024-03-10",
-    description: "Published paper on neural network optimization in IEEE conference",
+    description:
+      "Published paper on neural network optimization in IEEE conference",
     proofLink: "/proof/research-paper.pdf",
     status: "pending",
   },
@@ -69,7 +93,7 @@ const validationQueue = [
     proofLink: "/proof/gsoc-acceptance.pdf",
     status: "pending",
   },
-]
+];
 
 // Hardcoded student list for profile viewer
 const studentsList = [
@@ -106,48 +130,52 @@ const studentsList = [
     internships: 1,
     avatar: "/student3-profile.png",
   },
-]
+];
 
 export default function FacultyDashboard() {
-  const [selectedSubmission, setSelectedSubmission] = useState<any>(null)
-  const [selectedStudent, setSelectedStudent] = useState<any>(null)
-  const [showValidationModal, setShowValidationModal] = useState(false)
-  const [showStudentModal, setShowStudentModal] = useState(false)
-  const [filterType, setFilterType] = useState("all")
-  const [searchTerm, setSearchTerm] = useState("")
-  const [cgpaFilter, setCgpaFilter] = useState("all")
+  const [selectedSubmission, setSelectedSubmission] = useState<any>(null);
+  const [selectedStudent, setSelectedStudent] = useState<any>(null);
+  const [showValidationModal, setShowValidationModal] = useState(false);
+  const [showStudentModal, setShowStudentModal] = useState(false);
+  const [filterType, setFilterType] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [cgpaFilter, setCgpaFilter] = useState("all");
 
   const filteredQueue = validationQueue.filter((item) => {
-    const matchesType = filterType === "all" || item.type.toLowerCase() === filterType.toLowerCase()
+    const matchesType =
+      filterType === "all" ||
+      item.type.toLowerCase() === filterType.toLowerCase();
     const matchesSearch =
       item.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.title.toLowerCase().includes(searchTerm.toLowerCase())
-    return matchesType && matchesSearch
-  })
+      item.title.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesType && matchesSearch;
+  });
 
   const filteredStudents = studentsList.filter((student) => {
     const matchesSearch =
       student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student.usn.toLowerCase().includes(searchTerm.toLowerCase())
+      student.usn.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCGPA =
       cgpaFilter === "all" ||
       (cgpaFilter === "high" && student.cgpa >= 9.0) ||
       (cgpaFilter === "medium" && student.cgpa >= 8.0 && student.cgpa < 9.0) ||
-      (cgpaFilter === "low" && student.cgpa < 8.0)
-    return matchesSearch && matchesCGPA
-  })
+      (cgpaFilter === "low" && student.cgpa < 8.0);
+    return matchesSearch && matchesCGPA;
+  });
 
   const handleValidate = (submission: any, action: "approve" | "reject") => {
-    setSelectedSubmission({ ...submission, action })
-    setShowValidationModal(true)
-  }
+    setSelectedSubmission({ ...submission, action });
+    setShowValidationModal(true);
+  };
 
   const handleViewStudent = (student: any) => {
-    setSelectedStudent(student)
-    setShowStudentModal(true)
-  }
+    setSelectedStudent(student);
+    setShowStudentModal(true);
+  };
 
-  const pendingCount = validationQueue.filter((item) => item.status === "pending").length
+  const pendingCount = validationQueue.filter(
+    (item) => item.status === "pending"
+  ).length;
 
   return (
     <FacultyLayout userName={facultyData.name} userAvatar={facultyData.avatar}>
@@ -161,8 +189,12 @@ export default function FacultyDashboard() {
                   <ClipboardList className="w-5 h-5 text-yellow-600" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-foreground">{pendingCount}</p>
-                  <p className="text-sm text-muted-foreground">Pending Reviews</p>
+                  <p className="text-2xl font-bold text-foreground">
+                    {pendingCount}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Pending Reviews
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -200,13 +232,18 @@ export default function FacultyDashboard() {
                   <Users className="w-5 h-5 text-accent" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-foreground">{studentsList.length}</p>
+                  <p className="text-2xl font-bold text-foreground">
+                    {studentsList.length}
+                  </p>
                   <p className="text-sm text-muted-foreground">Students</p>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
+
+        {/* Unique Talent Identification */}
+        <TalentIdentification />
 
         {/* Validation Queue */}
         <Card className="border minimal-shadow">
@@ -217,7 +254,9 @@ export default function FacultyDashboard() {
                   <ClipboardList className="w-5 h-5 text-accent" />
                   Validation Queue
                 </CardTitle>
-                <CardDescription>Review and validate student achievement submissions</CardDescription>
+                <CardDescription>
+                  Review and validate student achievement submissions
+                </CardDescription>
               </div>
               <div className="flex gap-2">
                 <div className="relative">
@@ -248,11 +287,16 @@ export default function FacultyDashboard() {
           <CardContent>
             <div className="space-y-4">
               {filteredQueue.map((submission) => (
-                <div key={submission.id} className="p-4 border border-border rounded-xl bg-card">
+                <div
+                  key={submission.id}
+                  className="p-4 border border-border rounded-xl bg-card"
+                >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <Avatar className="w-10 h-10">
-                        <AvatarImage src={submission.studentAvatar || "/placeholder.svg"} />
+                        <AvatarImage
+                          src={submission.studentAvatar || "/placeholder.svg"}
+                        />
                         <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-white">
                           {submission.studentName
                             .split(" ")
@@ -261,7 +305,9 @@ export default function FacultyDashboard() {
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <h4 className="font-semibold text-foreground">{submission.title}</h4>
+                        <h4 className="font-semibold text-foreground">
+                          {submission.title}
+                        </h4>
                         <p className="text-sm text-muted-foreground">
                           {submission.studentName} • {submission.studentUSN}
                         </p>
@@ -269,17 +315,30 @@ export default function FacultyDashboard() {
                     </div>
                     <div className="flex items-center gap-2">
                       <Badge variant="secondary">{submission.type}</Badge>
-                      <Badge className="bg-yellow-100 text-yellow-800">Pending</Badge>
+                      <Badge className="bg-yellow-100 text-yellow-800">
+                        Pending
+                      </Badge>
                     </div>
                   </div>
 
-                  <p className="text-foreground mb-3">{submission.description}</p>
+                  <p className="text-foreground mb-3">
+                    {submission.description}
+                  </p>
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                      <span>Submitted: {new Date(submission.submittedDate).toLocaleDateString()}</span>
+                      <span>
+                        Submitted:{" "}
+                        {new Date(
+                          submission.submittedDate
+                        ).toLocaleDateString()}
+                      </span>
                       <Button variant="ghost" size="sm" asChild>
-                        <a href={submission.proofLink} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={submission.proofLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <FileText className="w-4 h-4 mr-1" />
                           View Proof
                         </a>
@@ -321,7 +380,9 @@ export default function FacultyDashboard() {
                   <Users className="w-5 h-5 text-primary" />
                   Student Profile Viewer
                 </CardTitle>
-                <CardDescription>View detailed student portfolios and performance</CardDescription>
+                <CardDescription>
+                  View detailed student portfolios and performance
+                </CardDescription>
               </div>
               <div className="flex gap-2">
                 <div className="relative">
@@ -350,11 +411,16 @@ export default function FacultyDashboard() {
           <CardContent>
             <div className="grid gap-4">
               {filteredStudents.map((student) => (
-                <div key={student.usn} className="p-4 border border-border rounded-xl bg-card">
+                <div
+                  key={student.usn}
+                  className="p-4 border border-border rounded-xl bg-card"
+                >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <Avatar className="w-12 h-12">
-                        <AvatarImage src={student.avatar || "/placeholder.svg"} />
+                        <AvatarImage
+                          src={student.avatar || "/placeholder.svg"}
+                        />
                         <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-white">
                           {student.name
                             .split(" ")
@@ -363,7 +429,9 @@ export default function FacultyDashboard() {
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <h4 className="font-semibold text-foreground">{student.name}</h4>
+                        <h4 className="font-semibold text-foreground">
+                          {student.name}
+                        </h4>
                         <p className="text-sm text-muted-foreground">
                           {student.usn} • {student.year}
                         </p>
@@ -372,23 +440,41 @@ export default function FacultyDashboard() {
 
                     <div className="flex items-center gap-6">
                       <div className="text-center">
-                        <p className="text-lg font-bold text-primary">{student.cgpa}</p>
+                        <p className="text-lg font-bold text-primary">
+                          {student.cgpa}
+                        </p>
                         <p className="text-xs text-muted-foreground">CGPA</p>
                       </div>
                       <div className="text-center">
-                        <p className="text-lg font-bold text-accent">{student.projects}</p>
-                        <p className="text-xs text-muted-foreground">Projects</p>
+                        <p className="text-lg font-bold text-accent">
+                          {student.projects}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          Projects
+                        </p>
                       </div>
                       <div className="text-center">
-                        <p className="text-lg font-bold text-green-600">{student.hackathons}</p>
-                        <p className="text-xs text-muted-foreground">Hackathons</p>
+                        <p className="text-lg font-bold text-green-600">
+                          {student.hackathons}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          Hackathons
+                        </p>
                       </div>
                       <div className="text-center">
-                        <p className="text-lg font-bold text-yellow-600">{student.research}</p>
-                        <p className="text-xs text-muted-foreground">Research</p>
+                        <p className="text-lg font-bold text-yellow-600">
+                          {student.research}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          Research
+                        </p>
                       </div>
 
-                      <Button variant="outline" size="sm" onClick={() => handleViewStudent(student)}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleViewStudent(student)}
+                      >
                         <Eye className="w-4 h-4 mr-1" />
                         View Profile
                       </Button>
@@ -430,7 +516,11 @@ export default function FacultyDashboard() {
         submission={selectedSubmission}
       />
 
-      <StudentProfileModal open={showStudentModal} onOpenChange={setShowStudentModal} student={selectedStudent} />
+      <StudentProfileModal
+        open={showStudentModal}
+        onOpenChange={setShowStudentModal}
+        student={selectedStudent}
+      />
     </FacultyLayout>
-  )
+  );
 }
