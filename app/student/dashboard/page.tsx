@@ -26,6 +26,7 @@ import { studentProfileData, studentStatsData } from "@/lib/mock-data/student-pr
 import { ActivityManagement } from "@/components/student/activity-management"
 import { RoadmapsSystem } from "@/components/student/roadmaps-system"
 import { DigitalTwin } from "@/components/student/digital-twin"
+import { CompetitiveSection } from "@/components/student/competitive"
 
 export default function StudentDashboard() {
   const [activeTab, setActiveTab] = useState("overview")
@@ -189,7 +190,7 @@ export default function StudentDashboard() {
         <Card className="border minimal-shadow">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <CardHeader>
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-5">
                 <TabsTrigger value="overview" className="flex items-center gap-2">
                   <Activity className="w-4 h-4" />
                   Activities
@@ -201,6 +202,10 @@ export default function StudentDashboard() {
                 <TabsTrigger value="digital-twin" className="flex items-center gap-2">
                   <Bot className="w-4 h-4" />
                   Digital Twin
+                </TabsTrigger>
+                <TabsTrigger value="competitive" className="flex items-center gap-2">
+                  <Trophy className="w-4 h-4" />
+                  Competitive
                 </TabsTrigger>
                 <TabsTrigger value="analytics" className="flex items-center gap-2">
                   <BarChart3 className="w-4 h-4" />
@@ -220,6 +225,10 @@ export default function StudentDashboard() {
 
               <TabsContent value="digital-twin" className="space-y-4">
                 <DigitalTwin />
+              </TabsContent>
+
+              <TabsContent value="competitive" className="space-y-4">
+                <CompetitiveSection />
               </TabsContent>
 
               <TabsContent value="analytics" className="space-y-4">
