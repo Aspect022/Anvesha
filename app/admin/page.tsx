@@ -1,14 +1,27 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { AdminLayout } from "@/components/layout/admin-layout"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Progress } from "@/components/ui/progress"
+import { useState } from "react";
+import { generateAndDownloadPdf } from "@/lib/utils";
+import { AdminLayout } from "@/components/layout/admin-layout";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
 import {
   BarChart,
   Bar,
@@ -22,7 +35,7 @@ import {
   Cell,
   LineChart,
   Line,
-} from "recharts"
+} from "recharts";
 import {
   Download,
   Search,
@@ -36,14 +49,14 @@ import {
   BarChart3,
   PieChartIcon,
   Calendar,
-} from "lucide-react"
+} from "lucide-react";
 
 // Hardcoded admin data
 const adminData = {
   name: "Dr. Rajesh Kumar",
   role: "System Administrator",
   avatar: "/admin-profile.png",
-}
+};
 
 // Hardcoded analytics data
 const overviewStats = [
@@ -79,7 +92,7 @@ const overviewStats = [
     bgColor: "bg-cyan-100",
     change: "+15%",
   },
-]
+];
 
 // Chart data
 const participationData = [
@@ -89,7 +102,7 @@ const participationData = [
   { month: "Apr", students: 162, achievements: 78, placements: 31 },
   { month: "May", students: 175, achievements: 89, placements: 28 },
   { month: "Jun", students: 189, achievements: 95, placements: 35 },
-]
+];
 
 const departmentData = [
   { name: "Computer Science", value: 45, color: "#1E3A8A" },
@@ -97,14 +110,14 @@ const departmentData = [
   { name: "Mechanical", value: 15, color: "#10B981" },
   { name: "Electrical", value: 10, color: "#F59E0B" },
   { name: "Others", value: 5, color: "#DC2626" },
-]
+];
 
 const certificationData = [
   { category: "Technical", count: 456, percentage: 65 },
   { category: "Soft Skills", count: 234, percentage: 33 },
   { category: "Industry", count: 123, percentage: 18 },
   { category: "Research", count: 89, percentage: 13 },
-]
+];
 
 // Hardcoded student overview data
 const studentOverview = [
@@ -148,58 +161,204 @@ const studentOverview = [
     status: "Active",
     lastActivity: "2024-01-12",
   },
-]
+];
 
 export default function AdminDashboard() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [departmentFilter, setDepartmentFilter] = useState("all")
-  const [statusFilter, setStatusFilter] = useState("all")
-  const [sortBy, setSortBy] = useState("name")
+  const [searchTerm, setSearchTerm] = useState("");
+  const [departmentFilter, setDepartmentFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [sortBy, setSortBy] = useState("name");
 
   const filteredStudents = studentOverview
     .filter((student) => {
       const matchesSearch =
         student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.usn.toLowerCase().includes(searchTerm.toLowerCase())
-      const matchesDepartment = departmentFilter === "all" || student.department === departmentFilter
-      const matchesStatus = statusFilter === "all" || student.status.toLowerCase() === statusFilter.toLowerCase()
-      return matchesSearch && matchesDepartment && matchesStatus
+        student.usn.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesDepartment =
+        departmentFilter === "all" || student.department === departmentFilter;
+      const matchesStatus =
+        statusFilter === "all" ||
+        student.status.toLowerCase() === statusFilter.toLowerCase();
+      return matchesSearch && matchesDepartment && matchesStatus;
     })
     .sort((a, b) => {
       switch (sortBy) {
         case "name":
-          return a.name.localeCompare(b.name)
+          return a.name.localeCompare(b.name);
         case "cgpa":
-          return b.cgpa - a.cgpa
+          return b.cgpa - a.cgpa;
         case "achievements":
-          return b.achievements - a.achievements
+          return b.achievements - a.achievements;
         case "year":
-          return a.year.localeCompare(b.year)
+          return a.year.localeCompare(b.year);
         default:
-          return 0
+          return 0;
       }
-    })
+    });
 
-  const handleExport = (type: string) => {
-    // Mock export functionality
-    alert(`Exporting ${type} report... This would generate and download the report.`)
-  }
+  const handleExport = async (type: string) => {
+    const commonIntro = [
+      "This is a dummy report generated for preview purposes.",
+      "Data shown here is placeholder and not representative of real records.",
+    ];
+
+    const makeSections = (kind: string) => {
+      switch (kind) {
+        case "NAAC Student Achievement":
+          return [
+            { heading: "Summary", lines: commonIntro },
+            {
+              heading: "Key Metrics",
+              lines: [
+                "Total Students: 1,247",
+                "Avg. CGPA: 8.6",
+                "Achievements Submitted (YTD): 3,456",
+              ],
+            },
+            {
+              heading: "Highlights",
+              lines: [
+                "Increased participation in technical events.",
+                "Growth in industry certifications across CSE and ECE.",
+              ],
+            },
+          ];
+        case "NAAC Faculty Performance":
+          return [
+            { heading: "Summary", lines: commonIntro },
+            {
+              heading: "Faculty KPIs",
+              lines: [
+                "Active Faculty: 89",
+                "Papers Published (YTD): 132",
+                "Workshops Conducted: 28",
+              ],
+            },
+            {
+              heading: "Remarks",
+              lines: ["Consistent research output across departments."],
+            },
+          ];
+        case "NAAC Institutional":
+          return [
+            { heading: "Summary", lines: commonIntro },
+            {
+              heading: "Institution Data",
+              lines: ["Uptime: 99.8%", "Data Processed: 2.4TB"],
+            },
+          ];
+        case "NIRF Teaching Learning":
+          return [
+            { heading: "Summary", lines: commonIntro },
+            {
+              heading: "Teaching & Learning",
+              lines: [
+                "Student-Teacher Ratio: 18:1",
+                "Average Course Feedback: 4.2/5",
+              ],
+            },
+          ];
+        case "NIRF Research":
+          return [
+            { heading: "Summary", lines: commonIntro },
+            {
+              heading: "Research & Innovation",
+              lines: ["Patents Filed: 12", "Funded Projects: 7"],
+            },
+          ];
+        case "NIRF Placement":
+          return [
+            { heading: "Summary", lines: commonIntro },
+            {
+              heading: "Placements",
+              lines: ["Offers: 234", "Median Package: ₹7.2 LPA"],
+            },
+          ];
+        case "AICTE Annual":
+          return [
+            { heading: "Summary", lines: commonIntro },
+            {
+              heading: "Annual Highlights",
+              lines: ["New Labs: 3", "MoUs Signed: 5"],
+            },
+          ];
+        case "AICTE Student Data":
+          return [
+            { heading: "Summary", lines: commonIntro },
+            {
+              heading: "Student Data",
+              lines: ["Enrollment: 1,247", "Graduation Rate: 92%"],
+            },
+          ];
+        case "AICTE Infrastructure":
+          return [
+            { heading: "Summary", lines: commonIntro },
+            {
+              heading: "Infrastructure",
+              lines: ["Smart Classrooms: 42", "High-speed Labs: 12"],
+            },
+          ];
+        case "Department Analytics":
+          return [
+            { heading: "Summary", lines: commonIntro },
+            {
+              heading: "Departments",
+              lines: [
+                "CSE: 45%",
+                "ECE: 25%",
+                "ME: 15%",
+                "EEE: 10%",
+                "Others: 5%",
+              ],
+            },
+          ];
+        case "Placement Analytics":
+          return [
+            { heading: "Summary", lines: commonIntro },
+            {
+              heading: "Trends",
+              lines: ["Offers up 15% YoY", "Top sectors: IT, Core, Startups"],
+            },
+          ];
+        case "Achievement Trends":
+          return [
+            { heading: "Summary", lines: commonIntro },
+            {
+              heading: "Monthly Submissions",
+              lines: ["Jan: 45", "Feb: 52", "Mar: 67", "Apr: 78"],
+            },
+          ];
+        default:
+          return [{ heading: "Summary", lines: commonIntro }];
+      }
+    };
+
+    await generateAndDownloadPdf(
+      `${type} Report`,
+      makeSections(type),
+      `${type.replace(/\s+/g, "_")}_Report`
+    );
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Active":
-        return "bg-emerald-100 text-emerald-800"
+        return "bg-emerald-100 text-emerald-800";
       case "Placed":
-        return "bg-blue-100 text-blue-800"
+        return "bg-blue-100 text-blue-800";
       case "Inactive":
-        return "bg-gray-100 text-gray-800"
+        return "bg-gray-100 text-gray-800";
       default:
-        return "bg-gray-100 text-gray-800"
+        return "bg-gray-100 text-gray-800";
     }
-  }
+  };
 
   return (
-    <AdminLayout role="admin" userName={adminData.name} userAvatar={adminData.avatar}>
+    <AdminLayout
+      role="admin"
+      userName={adminData.name}
+      userAvatar={adminData.avatar}
+    >
       <div className="space-y-6">
         {/* Overview Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -212,7 +371,9 @@ export default function AdminDashboard() {
                       <stat.icon className={`w-5 h-5 ${stat.color}`} />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-slate-700">{stat.value}</p>
+                      <p className="text-2xl font-bold text-slate-700">
+                        {stat.value}
+                      </p>
                       <p className="text-sm text-gray-500">{stat.label}</p>
                     </div>
                   </div>
@@ -253,7 +414,9 @@ export default function AdminDashboard() {
                   <TrendingUp className="w-5 h-5 text-blue-600" />
                   Participation Trends
                 </CardTitle>
-                <CardDescription>Monthly student engagement and achievement trends</CardDescription>
+                <CardDescription>
+                  Monthly student engagement and achievement trends
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="h-80">
@@ -277,7 +440,13 @@ export default function AdminDashboard() {
                         strokeWidth={2}
                         name="Achievements"
                       />
-                      <Line type="monotone" dataKey="placements" stroke="#10B981" strokeWidth={2} name="Placements" />
+                      <Line
+                        type="monotone"
+                        dataKey="placements"
+                        stroke="#10B981"
+                        strokeWidth={2}
+                        name="Placements"
+                      />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -292,7 +461,9 @@ export default function AdminDashboard() {
                     <PieChartIcon className="w-5 h-5 text-emerald-600" />
                     Department Distribution
                   </CardTitle>
-                  <CardDescription>Student participation by department</CardDescription>
+                  <CardDescription>
+                    Student participation by department
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="h-64">
@@ -326,15 +497,21 @@ export default function AdminDashboard() {
                     <Trophy className="w-5 h-5 text-amber-600" />
                     Certification Categories
                   </CardTitle>
-                  <CardDescription>Achievement distribution by category</CardDescription>
+                  <CardDescription>
+                    Achievement distribution by category
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {certificationData.map((cert, index) => (
                       <div key={index} className="space-y-2">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium text-slate-700">{cert.category}</span>
-                          <span className="text-sm text-gray-600">{cert.count} achievements</span>
+                          <span className="text-sm font-medium text-slate-700">
+                            {cert.category}
+                          </span>
+                          <span className="text-sm text-gray-600">
+                            {cert.count} achievements
+                          </span>
                         </div>
                         <Progress value={cert.percentage} className="h-2" />
                       </div>
@@ -351,7 +528,9 @@ export default function AdminDashboard() {
                   <BarChart3 className="w-5 h-5 text-cyan-600" />
                   Achievement Breakdown
                 </CardTitle>
-                <CardDescription>Monthly achievement submissions by type</CardDescription>
+                <CardDescription>
+                  Monthly achievement submissions by type
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="h-80">
@@ -361,8 +540,16 @@ export default function AdminDashboard() {
                       <XAxis dataKey="month" />
                       <YAxis />
                       <Tooltip />
-                      <Bar dataKey="achievements" fill="#06B6D4" name="Total Achievements" />
-                      <Bar dataKey="placements" fill="#10B981" name="Placements" />
+                      <Bar
+                        dataKey="achievements"
+                        fill="#06B6D4"
+                        name="Total Achievements"
+                      />
+                      <Bar
+                        dataKey="placements"
+                        fill="#10B981"
+                        name="Placements"
+                      />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -380,7 +567,10 @@ export default function AdminDashboard() {
                       <Users className="w-5 h-5 text-blue-600" />
                       Student Overview
                     </CardTitle>
-                    <CardDescription>Comprehensive view of all students with filtering and sorting</CardDescription>
+                    <CardDescription>
+                      Comprehensive view of all students with filtering and
+                      sorting
+                    </CardDescription>
                   </div>
                   <div className="flex gap-2">
                     <div className="relative">
@@ -392,7 +582,10 @@ export default function AdminDashboard() {
                         className="pl-10 w-64"
                       />
                     </div>
-                    <Select value={departmentFilter} onValueChange={setDepartmentFilter}>
+                    <Select
+                      value={departmentFilter}
+                      onValueChange={setDepartmentFilter}
+                    >
                       <SelectTrigger className="w-32">
                         <SelectValue />
                       </SelectTrigger>
@@ -404,7 +597,10 @@ export default function AdminDashboard() {
                         <SelectItem value="EEE">EEE</SelectItem>
                       </SelectContent>
                     </Select>
-                    <Select value={statusFilter} onValueChange={setStatusFilter}>
+                    <Select
+                      value={statusFilter}
+                      onValueChange={setStatusFilter}
+                    >
                       <SelectTrigger className="w-32">
                         <SelectValue />
                       </SelectTrigger>
@@ -423,7 +619,9 @@ export default function AdminDashboard() {
                       <SelectContent>
                         <SelectItem value="name">Name</SelectItem>
                         <SelectItem value="cgpa">CGPA</SelectItem>
-                        <SelectItem value="achievements">Achievements</SelectItem>
+                        <SelectItem value="achievements">
+                          Achievements
+                        </SelectItem>
                         <SelectItem value="year">Year</SelectItem>
                       </SelectContent>
                     </Select>
@@ -437,29 +635,44 @@ export default function AdminDashboard() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
                           <div>
-                            <h4 className="font-semibold text-slate-700">{student.name}</h4>
+                            <h4 className="font-semibold text-slate-700">
+                              {student.name}
+                            </h4>
                             <p className="text-sm text-gray-600">
-                              {student.usn} • {student.year} • {student.department}
+                              {student.usn} • {student.year} •{" "}
+                              {student.department}
                             </p>
                           </div>
                         </div>
 
                         <div className="flex items-center gap-6">
                           <div className="text-center">
-                            <p className="text-lg font-bold text-blue-600">{student.cgpa}</p>
+                            <p className="text-lg font-bold text-blue-600">
+                              {student.cgpa}
+                            </p>
                             <p className="text-xs text-gray-500">CGPA</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-lg font-bold text-amber-600">{student.achievements}</p>
-                            <p className="text-xs text-gray-500">Achievements</p>
+                            <p className="text-lg font-bold text-amber-600">
+                              {student.achievements}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              Achievements
+                            </p>
                           </div>
                           <div className="text-center">
                             <p className="text-sm text-gray-600">
-                              {new Date(student.lastActivity).toLocaleDateString()}
+                              {new Date(
+                                student.lastActivity
+                              ).toLocaleDateString()}
                             </p>
-                            <p className="text-xs text-gray-500">Last Activity</p>
+                            <p className="text-xs text-gray-500">
+                              Last Activity
+                            </p>
                           </div>
-                          <Badge className={getStatusColor(student.status)}>{student.status}</Badge>
+                          <Badge className={getStatusColor(student.status)}>
+                            {student.status}
+                          </Badge>
                           <Button variant="outline" size="sm">
                             View Details
                           </Button>
@@ -482,7 +695,9 @@ export default function AdminDashboard() {
                     <FileText className="w-5 h-5 text-blue-600" />
                     NAAC Reports
                   </CardTitle>
-                  <CardDescription>National Assessment and Accreditation Council reports</CardDescription>
+                  <CardDescription>
+                    National Assessment and Accreditation Council reports
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <Button
@@ -519,7 +734,9 @@ export default function AdminDashboard() {
                     <FileText className="w-5 h-5 text-emerald-600" />
                     NIRF Reports
                   </CardTitle>
-                  <CardDescription>National Institutional Ranking Framework reports</CardDescription>
+                  <CardDescription>
+                    National Institutional Ranking Framework reports
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <Button
@@ -556,7 +773,9 @@ export default function AdminDashboard() {
                     <FileText className="w-5 h-5 text-amber-600" />
                     AICTE Reports
                   </CardTitle>
-                  <CardDescription>All India Council for Technical Education reports</CardDescription>
+                  <CardDescription>
+                    All India Council for Technical Education reports
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <Button
@@ -593,7 +812,9 @@ export default function AdminDashboard() {
                     <BarChart3 className="w-5 h-5 text-cyan-600" />
                     Custom Reports
                   </CardTitle>
-                  <CardDescription>Generate custom analytics and data exports</CardDescription>
+                  <CardDescription>
+                    Generate custom analytics and data exports
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
@@ -633,7 +854,9 @@ export default function AdminDashboard() {
                   <Calendar className="w-5 h-5 text-purple-600" />
                   Scheduled Reports
                 </CardTitle>
-                <CardDescription>Set up automated report generation and delivery</CardDescription>
+                <CardDescription>
+                  Set up automated report generation and delivery
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-3">
@@ -656,5 +879,5 @@ export default function AdminDashboard() {
         </Tabs>
       </div>
     </AdminLayout>
-  )
+  );
 }
