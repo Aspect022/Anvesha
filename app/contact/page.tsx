@@ -88,9 +88,9 @@ export default function ContactPage() {
                   <div>
                     <p className="font-medium text-foreground">Address</p>
                     <p className="text-muted-foreground">
-                      Smart India Hackathon 2025
+                      Innovation Hub
                       <br />
-                      Innovation Hub, India
+                      India
                     </p>
                   </div>
                 </div>

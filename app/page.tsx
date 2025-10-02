@@ -176,7 +176,7 @@ export default function AnveshaHomePage() {
             </div>
 
             <div className="text-center md:text-right">
-              <p className="text-primary-foreground/70 text-sm">Built for SIH 2025</p>
+              <p className="text-primary-foreground/70 text-sm">© 2025 Anvesha. All rights reserved.</p>
             </div>
           </div>
         </div>

@@ -77,8 +77,8 @@ export default function AboutPage() {
               comprehensive institutional reports.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Built for the Smart India Hackathon 2025, Anvesha represents our commitment to transforming how
-              educational institutions discover, nurture, and connect talent with opportunities.
+              Anvesha represents our commitment to transforming how educational institutions discover, nurture, and
+              connect talent with opportunities.
             </p>
           </CardContent>
         </Card>
