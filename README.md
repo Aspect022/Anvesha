@@ -281,15 +281,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **M Harshith Raju** - harshithmr2135@gmail.com
 - **Yashaswini R** - rygowda1703@gmail.com
 
-## 📞 Support
-
-- **Email**: support@anvesha.com
-- **Documentation**: [docs.anvesha.com](https://docs.anvesha.com)
-- **Issues**: [GitHub Issues](https://github.com/your-username/anvesha/issues)
 
 ---
 
 <div align="center">
   <p><strong>Anvesha</strong> - Discovering Hidden Talents Through AI</p>
-  <p>© 2025 Anvesha Development Team. Built with ❤️ for SIH 2025</p>
+
 </div>
